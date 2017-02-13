@@ -1,0 +1,8 @@
+C:\Users\NodeJs\Documents\Visual Studio 2015\Projects\MathsLab\MathsLab\bin\Debug\MathsLab.dll
+C:\Users\NodeJs\Documents\Visual Studio 2015\Projects\MathsLab\MathsLab\bin\Debug\MathsLab.pdb
+C:\Users\NodeJs\Documents\Visual Studio 2015\Projects\MathsLab\MathsLab\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\Users\NodeJs\Documents\Visual Studio 2015\Projects\MathsLab\MathsLab\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.xml
+C:\Users\NodeJs\Documents\Visual Studio 2015\Projects\MathsLab\MathsLab\bin\Debug\fr\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+C:\Users\NodeJs\Documents\Visual Studio 2015\Projects\MathsLab\MathsLab\obj\Debug\MathsLab.csprojResolveAssemblyReference.cache
+C:\Users\NodeJs\Documents\Visual Studio 2015\Projects\MathsLab\MathsLab\obj\Debug\MathsLab.dll
+C:\Users\NodeJs\Documents\Visual Studio 2015\Projects\MathsLab\MathsLab\obj\Debug\MathsLab.pdb

@@ -1,0 +1,48 @@
+﻿Echantillon => N Tirages
+Tirage => Univers
+Evenement => Probabilité
+Frequence (Comprise entre 0 et 1) 
+
+VOCABULAIRE
+
+CARACTERE : element sur quoi la serie statistique porte.
+MODALITÉ : différentes valeurs que le caractere peut adopter.
+
+
+Caractere | Modalité
+-------------------------
+Couleur		vert
+			bleu
+			rouge
+-------------------------
+Pile/Face	pile
+			face
+
+
+ISSUE : modalité obtenue suite au tirage
+EVENEMENT : combinaison d'issues
+UNIVERS : evenement contenant toutes les issues
+PROBABILITÉ : 
+			  nombres issues de l'evenement
+			_________________________________			p est compris entre 0 et 1
+			  
+			  nombres issues de l'univers
+
+FREQUENCE :	
+			  nombres de réalisation d'un evenement
+			_________________________________________	f tend vers p lorsque n tend vers l'infini.
+			  
+			  nombre de tirages
+
+
+Regle des 95%
+On considere qu'un echantillon est valide si la frequence se situe dans cette plage (ceci est vrai a 95%)
+
+					1/racine(n)						1/racine(n)
+          [****************************** P ******************************]
+
+Inversement si la probabilité est inconnue dans 95% des cas elle se situera dans cette plage
+
+					1/racine(n)						1/racine(n)
+          [****************************** F ******************************]
+
