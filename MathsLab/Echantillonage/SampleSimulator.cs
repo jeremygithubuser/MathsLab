@@ -178,24 +178,207 @@ namespace MathsLab.Echantillonage
         public void Exercice13()
         {
             var chanel1MinProba = Sample95pctRule.GetMinProbabilityFromFrequency((double)31 / (double)100, 1000);
+            var chanel1MaxProba = Sample95pctRule.GetMaxProbabilityFromFrequency((double)31 / (double)100, 1000);
             var chanel2MinProba = Sample95pctRule.GetMinProbabilityFromFrequency((double)40 / (double)100, 144);
-
+            var chanel2MaxProba = Sample95pctRule.GetMaxProbabilityFromFrequency((double)40 / (double)100, 144);
             _testContext.WriteLine($"Selon la regle des 95% La probabilité qu'un auditeur regarde la chaine 1 se situe entre");
-            _testContext.WriteLine($"Min : {Sample95pctRule.GetMinProbabilityFromFrequency((double)31/ (double)100,1000).ToString()}");
-            _testContext.WriteLine($"Max : {Sample95pctRule.GetMaxProbabilityFromFrequency((double)31 / (double)100, 1000).ToString()}");
-            
-            _testContext.WriteLine($"Selon la regle des 95% La probabilité qu'un auditeur regarde la chaine 2 se situe entre");
-            _testContext.WriteLine($"Min : {Sample95pctRule.GetMinProbabilityFromFrequency((double)40 / (double)100, 144).ToString()}");
-            _testContext.WriteLine($"Max : {Sample95pctRule.GetMaxProbabilityFromFrequency((double)40 / (double)100, 144).ToString()}");
+            _testContext.WriteLine($"Min : {chanel1MinProba.ToString()}");
+            _testContext.WriteLine($"Max : {chanel1MaxProba.ToString()}");
 
-            if (chanel1MinProba > chanel2MinProba)
+            _testContext.WriteLine($"Selon la regle des 95% La probabilité qu'un auditeur regarde la chaine 2 se situe entre");
+            _testContext.WriteLine($"Min : {chanel2MinProba.ToString()}");
+            _testContext.WriteLine($"Max : {chanel2MaxProba.ToString()}");
+
+            if (chanel2MaxProba < chanel1MinProba)
             {
                 _testContext.WriteLine("La probabilité qu'un auditeur regarde la chaine 1 est plus elevée");
             }
-            else
+            else if (chanel1MaxProba < chanel2MinProba)
             {
                 _testContext.WriteLine("La probabilité qu'un auditeur regarde la chaine 2 est plus elevée");
             }
+            else
+            {
+                _testContext.WriteLine("Il est impossible de savoir quelle chaine a la plus grande probabilité d'etre regardée");
+            }
+        }
+
+        [TestMethod]
+        public void Exercice14()
+        {
+            var sampleSize = 100;
+            var p = new Probability(51, 100);
+
+            var boyMinFrequency = Sample95pctRule.GetMinFrequencyFromProbability((double)p.Numerator / (double)p.Denominator, sampleSize);
+            var boyMaxFrequency = Sample95pctRule.GetMaxFrequencyFromProbability((double)p.Numerator / (double)p.Denominator, sampleSize);
+
+            _testContext.WriteLine($"Selon la regle des 95% un echantillon de taille {sampleSize} est considéré valable si la frequence de l'issue Avoir un Garcon est située entre:");
+            _testContext.WriteLine($"Min Frequency : {boyMinFrequency.ToString()} Min Size {boyMinFrequency * sampleSize}");
+            _testContext.WriteLine($"Max Frequency : {boyMaxFrequency.ToString()} Max Size {boyMaxFrequency * sampleSize}");
+
+
+            sampleSize = 132;
+            boyMinFrequency = Sample95pctRule.GetMinFrequencyFromProbability((double)p.Numerator / (double)p.Denominator, sampleSize);
+            boyMaxFrequency = Sample95pctRule.GetMaxFrequencyFromProbability((double)p.Numerator / (double)p.Denominator, sampleSize);
+
+            _testContext.WriteLine($"Selon la regle des 95% un echantillon de taille {sampleSize} est considéré valable si la frequence de l'issue Avoir un Garcon est située entre:");
+            _testContext.WriteLine($"Min Frequency : {boyMinFrequency.ToString()} Min Size {boyMinFrequency * sampleSize}");
+            _testContext.WriteLine($"Max Frequency : {boyMaxFrequency.ToString()} Max Size {boyMaxFrequency * sampleSize}");
+
+
+            var villageBoyFrequency = (double)56 / (double)sampleSize;
+            var reserveBoyFrequency = (double)46 / (double)sampleSize;
+
+            //  POUR UNE PROBABILITE ET UNE TAILLE D ECHANTILLON DONNÉES
+            //  SI ON CREE UN GRAND NOMBRE D ECHANTILLONS ON VERRA QUE
+            //  95% DES FREQUENCES OBTENUES SE SITUENT DANS UNE PLAGE
+            //  5% DES FREQUENCES OBTENUES SE SITUENT HORS PLAGE
+
+            //  ON NOUS PRESENTE UN ECHANTILLON HORS PLAGE IL A DONC 5% DE CHANCES D ETRE VALIDE
+            //  ON AFFIRME DONC QU IL EST INVALIDE AVEC UNE POSSIBILITÉ D ERREUR DE 5%
+
+            _testContext.WriteLine($"On peut dire avec 5% de risque");
+            if (boyMinFrequency <= villageBoyFrequency && villageBoyFrequency <= boyMaxFrequency)
+            {
+                _testContext.WriteLine($"L'echantillon concernant le nombre de garcons nés dans le village est valide");
+            }
+            else
+            {
+                _testContext.WriteLine($"L'echantillon concernant le nombre de garcons nés dans le village est invalide");
+            }
+
+            if (boyMinFrequency <= reserveBoyFrequency && reserveBoyFrequency <= boyMaxFrequency)
+            {
+                _testContext.WriteLine($"L'echantillon concernant le nombre de garcons nés dans la reserve est valide");
+            }
+            else
+            {
+                _testContext.WriteLine($"L'echantillon concernant le nombre de garcons nés dans la reserve est invalide");
+            }
+
+        }
+
+        [TestMethod]
+        public void Exercice15()
+        {
+            var sampleSize = 50;
+            var p = new Probability(20, 100);
+
+            var anomalyMinFrequency = Sample95pctRule.GetMinFrequencyFromProbability((double)p.Numerator / (double)p.Denominator, sampleSize);
+            var anomalyMaxFrequency = Sample95pctRule.GetMaxFrequencyFromProbability((double)p.Numerator / (double)p.Denominator, sampleSize);
+
+            _testContext.WriteLine($"Selon la regle des 95% un echantillon de taille {sampleSize} est considéré valable si la frequence de l'issue Avoir une anomalie est située entre:");
+            _testContext.WriteLine($"Min Frequency : {anomalyMinFrequency.ToString()} Min Size {anomalyMinFrequency * sampleSize}");
+            _testContext.WriteLine($"Max Frequency : {anomalyMaxFrequency.ToString()} Max Size {anomalyMaxFrequency * sampleSize}");
+
+
+            var observedAnomalyFrequency = (double)13 / (double)sampleSize;
+
+            //  POUR UNE PROBABILITE ET UNE TAILLE D ECHANTILLON DONNÉES
+            //  SI ON CREE UN GRAND NOMBRE D ECHANTILLONS ON VERRA QUE
+            //  95% DES FREQUENCES OBTENUES SE SITUENT DANS UNE PLAGE
+            //  5% DES FREQUENCES OBTENUES SE SITUENT HORS PLAGE
+
+            //  ON NOUS PRESENTE UN ECHANTILLON HORS PLAGE IL A DONC 5% DE CHANCES D ETRE VALIDE
+            //  ON AFFIRME DONC QU IL EST INVALIDE AVEC UNE POSSIBILITÉ D ERREUR DE 5%
+
+            _testContext.WriteLine($"On peut dire avec 5% de risque");
+            if (anomalyMinFrequency <= observedAnomalyFrequency && observedAnomalyFrequency <= anomalyMaxFrequency)
+            {
+                _testContext.WriteLine($"L'echantillon concernant le nombre de peintures ayant un defaut est valide");
+            }
+            else
+            {
+                _testContext.WriteLine($"L'echantillon concernant le nombre de peintures ayant un defaut est invalide");
+            }
+
+            _testContext.WriteLine($"On pourrait dire avec 5% de risque");
+            _testContext.WriteLine($"L'echantillon de {sampleSize} vehicules concernant le nombre de peintures ayant un defaut est invalide");
+            _testContext.WriteLine($"Si le nombre de default excede {anomalyMaxFrequency * sampleSize} "); // 18 vehicules
+
+        }
+
+        [TestMethod]
+        public void Exercice16()
+        {
+            var sampleSize = 100;
+            var f = new Frequency(75, 100);
+            var modalite = "guerir de la maladie";
+
+            var recoveryMinProbability = Sample95pctRule.GetMinProbabilityFromFrequency((double)f.Numerator / (double)f.Denominator, sampleSize);
+            var recoveryMaxProbability = Sample95pctRule.GetMaxProbabilityFromFrequency((double)f.Numerator / (double)f.Denominator, sampleSize);
+
+            _testContext.WriteLine($"Selon la regle des 95% dans echantillon de taille {sampleSize} si la frequence observée de l'issue {modalite} est de {(double)f.Numerator / (double)f.Denominator} la probabilité de {modalite} est située entre:");
+            _testContext.WriteLine($"Min Probability : {recoveryMinProbability.ToString()} Min Size {recoveryMinProbability * sampleSize}");
+            _testContext.WriteLine($"Max Probability : {recoveryMaxProbability.ToString()} Max Size {recoveryMaxProbability * sampleSize}");
+
+
+            var sampleSize2 = 100;
+            var f2 = new Frequency(65, 100);
+            var modalite2 = "guerir de la maladie";
+
+            var recoveryMinProbability2 = Sample95pctRule.GetMinProbabilityFromFrequency((double)f2.Numerator / (double)f2.Denominator, sampleSize2);
+            var recoveryMaxProbability2 = Sample95pctRule.GetMaxProbabilityFromFrequency((double)f2.Numerator / (double)f2.Denominator, sampleSize2);
+
+            _testContext.WriteLine($"Selon la regle des 95% dans echantillon de taille {sampleSize2} si la frequence observée de l'issue {modalite2} est de {(double)f2.Numerator / (double)f2.Denominator} la probabilité de {modalite2} est située entre:");
+            _testContext.WriteLine($"Min Probability : {recoveryMinProbability2.ToString()} Min Size {recoveryMinProbability2 * sampleSize2}");
+            _testContext.WriteLine($"Max Probability : {recoveryMaxProbability2.ToString()} Max Size {recoveryMaxProbability2 * sampleSize2}");
+
+
+
+            _testContext.WriteLine("Premier essai");
+
+            if (recoveryMaxProbability2 < recoveryMinProbability)
+            {
+                _testContext.WriteLine("Le medicament 1 est plus efficace");
+            }
+            else if (recoveryMaxProbability < recoveryMinProbability2)
+            {
+                _testContext.WriteLine("Le medicament 2 est plus efficace");
+            }
+            else
+            {
+                _testContext.WriteLine("Il est impossible de savoir quel médicament est le plus efficace");
+            }
+
+
+            _testContext.WriteLine("Second essai");
+
+            sampleSize = 1024;
+            f = new Frequency(755, 1024);
+            modalite = "guerir de la maladie";
+
+            recoveryMinProbability = Sample95pctRule.GetMinProbabilityFromFrequency((double)f.Numerator / (double)f.Denominator, sampleSize);
+            recoveryMaxProbability = Sample95pctRule.GetMaxProbabilityFromFrequency((double)f.Numerator / (double)f.Denominator, sampleSize);
+
+            _testContext.WriteLine($"Selon la regle des 95% dans echantillon de taille {sampleSize} si la frequence observée de l'issue {modalite} est de {(double)f.Numerator / (double)f.Denominator} la probabilité de {modalite} est située entre:");
+            _testContext.WriteLine($"Min Probability : {recoveryMinProbability.ToString()} Min Size {recoveryMinProbability * sampleSize}");
+            _testContext.WriteLine($"Max Probability : {recoveryMaxProbability.ToString()} Max Size {recoveryMaxProbability * sampleSize}");
+
+            sampleSize2 = 1024;
+            f2 = new Frequency(690, 1024);
+            modalite2 = "guerir de la maladie";
+
+            recoveryMinProbability2 = Sample95pctRule.GetMinProbabilityFromFrequency((double)f2.Numerator / (double)f2.Denominator, sampleSize2);
+            recoveryMaxProbability2 = Sample95pctRule.GetMaxProbabilityFromFrequency((double)f2.Numerator / (double)f2.Denominator, sampleSize2);
+
+            _testContext.WriteLine($"Selon la regle des 95% dans echantillon de taille {sampleSize2} si la frequence observée de l'issue {modalite} est de {(double)f2.Numerator / (double)f2.Denominator} la probabilité de {modalite2} est située entre:");
+            _testContext.WriteLine($"Min Probability : {recoveryMinProbability2.ToString()} Min Size {recoveryMinProbability2 * sampleSize2}");
+            _testContext.WriteLine($"Max Probability : {recoveryMaxProbability2.ToString()} Max Size {recoveryMaxProbability2 * sampleSize2}");
+
+            if (recoveryMaxProbability2 < recoveryMinProbability)
+            {
+                _testContext.WriteLine("Le medicament 1 est plus efficace");
+            }
+            else if (recoveryMaxProbability < recoveryMinProbability2)
+            {
+                _testContext.WriteLine("Le medicament 2 est plus efficace");
+            }
+            else
+            {
+                _testContext.WriteLine("Il est impossible de savoir quel médicament est le plus efficace");
+            }
+
         }
 
 
@@ -224,6 +407,17 @@ namespace MathsLab.Echantillonage
     public class Probability
     {
         public Probability(int n, int d)
+        {
+            Numerator = n;
+            Denominator = d;
+        }
+        public int Numerator { get; set; }
+        public int Denominator { get; set; }
+    }
+
+    public class Frequency
+    {
+        public Frequency(int n, int d)
         {
             Numerator = n;
             Denominator = d;
@@ -311,7 +505,7 @@ namespace MathsLab.Echantillonage
 
     public static class Sample95pctRule
     {
-        public static double GetMinProbabilityFromFrequency(double frequency , int experiences)
+        public static double GetMinProbabilityFromFrequency(double frequency, int experiences)
         {
             return frequency - (1 / (Math.Sqrt(experiences)));
 
@@ -320,6 +514,17 @@ namespace MathsLab.Echantillonage
         public static double GetMaxProbabilityFromFrequency(double frequency, int experiences)
         {
             return frequency + (1 / (Math.Sqrt(experiences)));
+        }
+
+        public static double GetMinFrequencyFromProbability(double probablility, int experiences)
+        {
+            return probablility - (1 / (Math.Sqrt(experiences)));
+
+        }
+
+        public static double GetMaxFrequencyFromProbability(double probablility, int experiences)
+        {
+            return probablility + (1 / (Math.Sqrt(experiences)));
         }
     }
 
